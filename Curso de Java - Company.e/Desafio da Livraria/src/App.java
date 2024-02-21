@@ -16,19 +16,19 @@ public class App {
         while (true) {
             int escolhaP, escolhaS;
             do {
-                System.out.println("\n\t[0] - Mostrar Livros\n\t[1] - Adicionar Livro\n\t[2] - Adicionar no Carrinho" +
-                        "\n\t[3] - Mostrar o Carrinho\n\t[4] - Finalizar compra\n\t[5] - Fechar");
-                System.out.print("\nqual deseja escolher? ");
+                System.out.println("\n\t[0] - Mostrar Livros\n\t[1] - Adicionar Livro\n\t[2] - Carrinho" +
+                "\n\t[3] - Fechar");
+                System.out.print("\nQual deseja escolher? ");
 
                 escolhaP = input.nextInt();
-                if (escolhaP < 0 || escolhaP > 4)
+                if (escolhaP < 0 || escolhaP > 5)
                     System.out.println("Digite um valor válido por favor!!!");
-            } while (escolhaP < 0 || escolhaP > 4);
+            } while (escolhaP < 0 || escolhaP > 5);
 
             if (escolhaP == 0) {
                 do {
-                    System.out.println("\n\t[0] - Mostrar Livros Físicos\n\t[1] - Mostrar eBooks\n\t[2] - voltar");
-                    System.out.print("qual deseja escolher? ");
+                    System.out.println("\n\t[0] - Mostrar Livros Físicos\n\t[1] - Mostrar eBooks\n\t[2] - Voltar");
+                    System.out.print("Qual deseja escolher? ");
 
                     escolhaS = input.nextInt();
                     if (escolhaS < 0 || escolhaS > 2)
@@ -45,8 +45,8 @@ public class App {
 
             if (escolhaP == 1) {
                 do {
-                    System.out.println("\n\t[0] - Adicionar Livros Físicos\n\t[1] - Adicionar eBooks\n\t[2] - voltar");
-                    System.out.print("\nqual deseja escolher? ");
+                    System.out.println("\n\t[0] - Adicionar Livros Físicos\n\t[1] - Adicionar eBooks\n\t[2] - Voltar");
+                    System.out.print("\nQual deseja escolher? ");
 
                     escolhaS = input.nextInt();
                     if (escolhaS < 0 || escolhaS > 2)
@@ -62,30 +62,52 @@ public class App {
             }
 
             if (escolhaP == 2) {
-                System.out.println("\n\t-Livros Físicos-");
-                mostrarLivros(livrosFisicos);
+                do {
+                    System.out.println("\n\t[0] - Adicionar livro ao Carrinho\n\t[1] - Remover livro do Carrinho\n\t[2] - Mostrar Carrinho\n\t[3] - Voltar");
+                    System.out.print("Qual deseja escolher? ");
 
-                System.out.println("zn\t-eBooks-");
-                mostrarLivros(eBooks);
+                    escolhaS = input.nextInt();
+                    if (escolhaS < 0 || escolhaS > 3)
+                        System.out.println("Digite um valor válido por favor!!!");
+                } while (escolhaS < 0 || escolhaS > 3);
+                
+                if(escolhaS == 0)
+                {   
+                    System.out.println("\n\t-Livros Físicos-");
+                    mostrarLivros(livrosFisicos);
 
-                adicionarNoCarrinho(carrinho, livrosFisicos, eBooks);
+                    System.out.println("\n\t-eBooks-");
+                    mostrarLivros(eBooks);
+
+                    adicionarNoCarrinho(carrinho, livrosFisicos, eBooks);
+                }
+
+                else if(escolhaS == 1)
+                {
+                    carrinho.mostrarCarrinho();
+
+                    removerCarrinho(carrinho);
+                }
+
+                else if(escolhaS == 2)
+                {
+                    carrinho.mostrarCarrinho();
+                }
+
+                else 
+                    continue;
+        
+                
             }
 
             if (escolhaP == 3)
-                carrinho.mostrarCarrinho();
-
-            if (escolhaP == 4)
-                finalizarCompra(carrinho);
-
-            if (escolhaP == 5)
                 break;
 
         }
 
-        /*
-         * lista.addLivroCarrinho(livros.get(0));
-         * lista.addLivroCarrinho(livros.get(1));
-         */
+        
+        
+         
     }
 
     public static void mostrarLivros(ArrayList<Livro> livros) {
@@ -192,6 +214,25 @@ public class App {
             }
             if (!isFound)
                 System.out.println("Código não encontrado!");
+        }
+    }
+
+    public static void removerCarrinho(CarrinhoDeCompras c)
+    {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("\n Quantos livros deseja remover do carrinho? ");
+        int qtd = input.nextInt();
+        input.nextLine();
+
+        for (int i = 0; i < qtd; i++) {
+            System.out.print("\nUtilize o ISBN do livro que deseja remover do carrinho: ");
+            String isbn = input.nextLine();
+            
+            if (!c.removerLivroCarrinho(isbn))
+                System.out.println("Código não encontrado!");
+            else    
+                System.out.println("Removido com Sucesso!!!");
         }
     }
 

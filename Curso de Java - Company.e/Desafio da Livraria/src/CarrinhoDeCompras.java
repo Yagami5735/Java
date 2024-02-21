@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class CarrinhoDeCompras{
     protected ArrayList<Livro> carrinho = new ArrayList<Livro>();
@@ -7,6 +8,22 @@ public class CarrinhoDeCompras{
     public void addLivroCarrinho(Livro livro)
     {
         carrinho.add(livro);
+    }
+
+    public Boolean removerLivroCarrinho(String isbn)
+    {  
+        boolean isFound = false;
+        for(Livro l: carrinho)
+        {
+            if(l.getIsbn().equals(isbn))
+            {
+                isFound = true;
+                carrinho.remove(l);
+                break;
+            }
+            
+        }
+        return isFound;
     }
 
     public double calcularTotal()
