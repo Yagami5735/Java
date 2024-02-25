@@ -4,12 +4,14 @@ public class Livro {
     protected String autor;
     protected String isbn;
     protected double preco;
+    protected int qtd;
 
-    public Livro(String titulo, String autor, String isbn, double preco) {
+    public Livro(String titulo, String autor, String isbn, double preco, int qtd) {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
         this.preco = preco;
+        this.qtd = qtd;
     }
 
     
@@ -36,6 +38,16 @@ public class Livro {
     public double calcularPrecoTotal()
     {
         return preco;
+    }
+
+    public void removerQtd()
+    {
+        --qtd;
+    }
+
+    public void addQtd()
+    {
+        ++qtd;
     }
 
     @Override

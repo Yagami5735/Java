@@ -9,9 +9,11 @@ public class App {
 
         Scanner input = new Scanner(System.in);
 
-        livrosFisicos.add(new LivroFisico("Devorador de Mundos", "Yan Yoshida Luz", "LF1", 10, 0.4));
-        eBooks.add(new Ebook("Devorador de Mundos", "Yan Yoshida Luz", "EB1", 10, 30.4));
-        livrosFisicos.add(new LivroFisico("O mentalista", "Yan Yoshida Luz", "LF2", 20, 0.8));
+        livrosFisicos.add(new LivroFisico("Devorador de Mundos", "Yan Yoshida Luz", "LF1", 13, 10, 0.4));
+        eBooks.add(new Ebook("Devorador de Mundos", "Yan Yoshida Luz", "EB1", 40, 10, 30.4));
+        livrosFisicos.add(new LivroFisico("O mentalista", "Yan Yoshida Luz", "LF2", 110, 20, 0.8));
+
+        
 
         while (true) {
             int escolhaP, escolhaS;
@@ -86,7 +88,7 @@ public class App {
                 {
                     carrinho.mostrarCarrinho();
 
-                    removerCarrinho(carrinho);
+                    removerCarrinho(carrinho, livrosFisicos, eBooks);
                 }
 
                 else if(escolhaS == 2)
@@ -105,9 +107,6 @@ public class App {
 
         }
 
-        
-        
-         
     }
 
     public static void mostrarLivros(ArrayList<Livro> livros) {
@@ -120,6 +119,7 @@ public class App {
         Scanner input = new Scanner(System.in);
         String titulo, autor, isbn;
         double preco, peso;
+        int qtdL;
 
         System.out.print("\n\nQuantos livros deseja adicionar? ");
         int qtd = input.nextInt();
@@ -138,6 +138,9 @@ public class App {
                 System.out.print("Digite o Preço do Livro: ");
                 preco = input.nextDouble();
 
+                System.out.print("Digite a quantida de livros: ");
+                qtdL = input.nextInt();
+
                 System.out.print("Digite o Peso do Livro: ");
                 peso = input.nextDouble();
 
@@ -145,7 +148,7 @@ public class App {
                     System.out.println("Valor(es) de preço e/ou peso errados, digite valores válidos por favor!");
             } while (preco <= 0 || peso <= 0);
 
-            l.add(new LivroFisico(titulo, autor, isbn, preco, peso));
+            l.add(new LivroFisico(titulo, autor, isbn, preco, qtdL, peso));
         }
     }
 
@@ -155,6 +158,7 @@ public class App {
         Scanner input = new Scanner(System.in);
         String titulo, autor, isbn;
         double preco, tamanhoEmMB;
+        int qtdL;
 
         System.out.print("Quantos livros deseja adicionar? ");
         int qtd = input.nextInt();
@@ -173,6 +177,9 @@ public class App {
                 System.out.print("Digite o Preço do Livro: ");
                 preco = input.nextDouble();
 
+                System.out.print("Digite a quantida de livros: ");
+                qtdL = input.nextInt();
+
                 System.out.print("Digite o Peso do Livro em MB: ");
                 tamanhoEmMB = input.nextDouble();
 
@@ -181,7 +188,7 @@ public class App {
 
             } while (preco <= 0 || tamanhoEmMB <= 0);
 
-            l.add(new Ebook(titulo, autor, isbn, preco, tamanhoEmMB));
+            l.add(new Ebook(titulo, autor, isbn, preco, qtdL, tamanhoEmMB));
         }
     }
 
@@ -217,7 +224,7 @@ public class App {
         }
     }
 
-    public static void removerCarrinho(CarrinhoDeCompras c)
+    public static void removerCarrinho(CarrinhoDeCompras c, ArrayList<Livro> f, ArrayList<Livro> e)
     {
         Scanner input = new Scanner(System.in);
 
@@ -231,8 +238,32 @@ public class App {
             
             if (!c.removerLivroCarrinho(isbn))
                 System.out.println("Código não encontrado!");
-            else    
+            else 
+            {
                 System.out.println("Removido com Sucesso!!!");
+                corrigirQtd(f, e, isbn);
+            }   
+                
+        }
+    }
+
+    public static void corrigirQtd(ArrayList<Livro> f, ArrayList<Livro> e, String isbn)
+    {
+        for(Livro l : f)
+        {
+            if(l.getIsbn().equals(isbn)) 
+            {
+                l.addQtd();
+                break;
+            }
+        }
+        for(Livro l : e)
+        {
+            if(l.getIsbn().equals(isbn)) 
+            {
+                l.addQtd();
+                break;
+            }
         }
     }
 

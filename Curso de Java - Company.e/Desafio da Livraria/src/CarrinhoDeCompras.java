@@ -8,6 +8,7 @@ public class CarrinhoDeCompras{
     public void addLivroCarrinho(Livro livro)
     {
         carrinho.add(livro);
+        livro.removerQtd();
     }
 
     public Boolean removerLivroCarrinho(String isbn)
@@ -23,6 +24,7 @@ public class CarrinhoDeCompras{
             }
             
         }
+
         return isFound;
     }
 
