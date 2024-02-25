@@ -205,19 +205,27 @@ public class App {
             boolean isFound = false;
             for (Livro l : f) {
                 if (l.getIsbn().equals(isbn)) {
-                    c.addLivroCarrinho(l);
-                    isFound = true;
-                    System.out.println("Adicionado com Sucesso!");
-                    break;
+                    if(l.getQtd() > 0)
+                    {
+                        c.addLivroCarrinho(l);
+                        isFound = true;
+                        System.out.println("Adicionado com Sucesso!");
+                        break;
+                    }
+                    else System.out.println("Livro fora de estoque!");
+                    
                 }
             }
             for (Livro l : e) {
-                if (l.getIsbn().equals(isbn)) {
+                if(l.getQtd() > 0)
+                {
                     c.addLivroCarrinho(l);
                     isFound = true;
                     System.out.println("Adicionado com Sucesso!");
                     break;
                 }
+                else System.out.println("Livro fora de estoque!");
+                
             }
             if (!isFound)
                 System.out.println("Código não encontrado!");
