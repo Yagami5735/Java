@@ -14,12 +14,7 @@ public class Livro {
         this.qtd = qtd;
     }
 
-    
-
-
-
-    public String getTitulo()
-    {
+    public String getTitulo() {
         return titulo;
     }
 
@@ -35,18 +30,19 @@ public class Livro {
         return preco;
     }
 
-    public double calcularPrecoTotal()
-    {
+    public int getQtd() {
+        return qtd;
+    }
+
+    public double calcularPrecoTotal() {
         return preco;
     }
 
-    public void removerQtd()
-    {
+    public void removerQtd() {
         --qtd;
     }
 
-    public void addQtd()
-    {
+    public void addQtd() {
         ++qtd;
     }
 
@@ -54,9 +50,9 @@ public class Livro {
     public String toString() {
         String livro;
         livro = String.format("ISBN do livro..: %s\n", isbn, null) +
-        String.format("Título do livro: %s\n", titulo) + 
-        String.format("Autor do livro.: %s\n", autor) +
-        String.format("Preço do livro.: R$%,.2f", preco);
+                String.format("Título do livro: %s\n", titulo) +
+                String.format("Autor do livro.: %s\n", autor) +
+                String.format("Preço do livro.: R$%,.2f", preco);
 
         return livro;
     }
